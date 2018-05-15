@@ -44,27 +44,31 @@
             <div class="col-sm-3 sidenav">
                 <h4>Logs</h4>
                 <ul>
-
                     <li v-for="log in logs" v-text="log"></li>
-                    
                 </ul>
                 <br>
             </div>
             <div class="col-sm-9">
                 <div class="row">
-                    <img src="space.jpg" class="rounded mx-auto d-block" style="width:60%;height:60%" alt="...">
+                    <img src="space.jpg" class="rounded mx-auto d-block" style="width:40%;height:40%;margin-top: 30px;margin-bottom: 30px;" alt="...">
                 </div>
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary btn-lg" style="margin-top:30px;"  v-on:click= "loadLogs">Connect</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-lg" style="" v-on:click="loadLogs">Connect</button>
+                        <button type="button" class="btn btn-success btn-lg" style="margin-left: 30px;" v-on:click="start">Start</button>
+                        <button type="button" class="btn btn-danger btn-lg" style="margin-left: 30px;" v-on:click="stop">Stop</button>
+                    </div>
+                    <div class="col">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-   <script type="text/javascript" src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 </body>
 
 </html>
