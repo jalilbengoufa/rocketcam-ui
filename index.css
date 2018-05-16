@@ -1,0 +1,75 @@
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+
+
+/* .row.content {
+    height: 900px
+}
+ */
+
+
+/* Set gray background color and 100% height */
+
+h1 {
+
+    color: red;
+}
+
+.sidenav {
+    background-color: black;
+    color: green;
+    height: 960px;
+    position: relative;
+}
+
+.space {
+    height: 100px;
+}
+
+.container {
+    margin-top: 20px;
+    text-align: center;
+    font-family: "Courier New",  Monospace;
+}
+.row{
+
+    background-image: url("5023.png");
+}
+
+ul {
+    margin: 0.80em 0;
+    padding: 0 1em;
+    list-style: none;
+    color: white;
+    font-size: large;
+    font-family: "Courier New",  Monospace;
+}
+
+li:before {
+    content: "";
+    border-color: transparent red;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -1em;
+    top: 0.9em;
+    position: relative;
+}
+
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+    }
+    .row.content {
+        height: auto;
+    }
+}
+
+
+
+}
