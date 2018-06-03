@@ -22,7 +22,7 @@
                                         <b-button v-on:click="changeToMode2(cam.index)" size="lg" :disabled="cam.mode2" variant="outline-primary">MODE:2</b-button>
                                         <br>
                                         <br>
-                                        <b-button v-if="cam.mode1" v-on:click="changeToMode2(cam.index)" size="lg" variant="warning">SNAPSHOT</b-button>
+                                        <b-button v-if="cam.mode1" v-on:click="snapshot(cam.index,cam.id)" size="lg" variant="warning">SNAPSHOT</b-button>
                                         <b-button v-if="cam.mode2 && cam.start" v-on:click="start(cam.index,cam.id)" size="lg" variant="success">START</b-button>
                                         <b-button v-if="cam.mode2 && cam.stop" v-on:click="stop(cam.index,cam.id)" size="lg" variant="danger">STOP</b-button>
                                         <br>
@@ -49,7 +49,7 @@ export default {
         return {
             cams: [],
             camsIds: [],
-            url: 'http://localhost:8000/',
+            url: 'http://10.0.0.1/',
             timeout: 0,
             logs: [],
             verifyConnection: null,
@@ -88,7 +88,7 @@ export default {
             fetch(self.url).then(function(response) {
                 return response.json()
             }).then(function(json) {
-                self.camsIds = json
+                self.camsIds = json.camera
                 self.createCams()
 
             }).catch(function(ex) {
@@ -97,91 +97,71 @@ export default {
 
             });
 
-            /*fetch(self.url).then(function(response) {
-                return response.json();
-            }).then(function(json) {
-                if (json.connected == true) {
-                    self.logs.unshift(json.stdout + "[ " + new Date().toLocaleTimeString() + " ]");
-                    self.cams[id].connect = 'invisible';
-                    self.cams[id].snapshot = 'invisible';
-                    self.cams[id].start = 'visible';
-
-
-                }
-            }).catch(function(ex) {
-                self.logs.unshift('Can not connect to the rocket , try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
-                console.log('parsing failed', ex);
-
-            })*/
         },
         start: function(index, id) {
             var self = this;
-            self.cams[index].start = false;
-            self.cams[index].stop = true;
-            self.cams[index].recording = true;
 
-            /*  fetch(self.url + 'start/' + id)
-                  .then(function(response) {
-                      return response.json()
-                  }).then(function(json) {
-                      if (json.running == true) {
-                          self.logs.unshift(json.stdout + " [ " + new Date().toLocaleTimeString() + "  ]");
-                          self.cams[id].start = 'invisible';
-                          self.cams[id].stop = 'visible';
-                      }
-                  }).catch(function(ex) {
-                      console.log('parsing failed', ex);
-                  });
+            fetch(self.url + 'start/' + id)
+                .then(function(response) {
+                    return response.json()
+                }).then(function(json) {
+                    if (json.running == true) {
+                        self.logs.unshift(json.stdout + " [ " + new Date().toLocaleTimeString() + "  ]");
+                        self.cams[index].start = false;
+                        self.cams[index].stop = true;
+                        self.cams[index].recording = true;
 
-              //fetch in interval to verify the connection
-              self.verifyConnection = setInterval(function() {
-                  fetch(self.url)
-                      .then(function(response) {
-                          return response.json()
-                      }).then(function(json) {
-                          if (json.running == false) {
-                              self.timeout++;
-                          }
-                          if (self.timeout == 3) {
-                              self.logs.unshift('The camera stopped running , please reload the page and try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
-                              self.cams[id].stop = 'invisible';
-                              self.beforeDestroy();
-                              self.timeout = 0;
-                          }
-                      }).catch(function(ex) {
-                          self.logs.unshift('Connection lost please reload the page and try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
-                          console.log('parsing failed', ex.toString())
-                          self.beforeDestroy();
-                      })
-              }.bind(this), 1000);*/
+                    }
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex);
+                });
+
+            //fetch in interval to verify the connection
+            self.verifyConnection = setInterval(function() {
+                fetch(self.url)
+                    .then(function(response) {
+                        return response.json()
+                    }).then(function(json) {
+                        if (json.running == false) {
+                            self.timeout++;
+                        }
+                        if (self.timeout == 3) {
+                            self.logs.unshift('The camera stopped running , please reload the page and try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
+                            self.cams[id].stop = 'invisible';
+                            self.beforeDestroy();
+                            self.timeout = 0;
+                        }
+                    }).catch(function(ex) {
+                        self.logs.unshift('Connection lost please reload the page and try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
+                        console.log('parsing failed', ex.toString())
+                        self.beforeDestroy();
+                    })
+            }.bind(this), 1000);
         },
         stop: function(index, id) {
             var self = this;
-            self.cams[index].start = true;
-            self.cams[index].stop = false;
-            self.cams[index].recording = false;
+            fetch(self.url + 'stop/' + id)
+                .then(function(response) {
+                    return response.json()
+                }).then(function(json) {
+                    if (json.running == false) {
+                        self.logs.unshift(json.stdout + " [ " + new Date().toLocaleTimeString() + "  ]");
+                        self.cams[index].start = true;
+                        self.cams[index].stop = false;
+                        self.cams[index].recording = false;
 
-            /*   fetch(self.url + 'stop/' + id)
-                   .then(function(response) {
-                       return response.json()
-                   }).then(function(json) {
-                       if (json.running == false) {
-                           self.logs.unshift(json.stdout + " [ " + new Date().toLocaleTimeString() + "  ]");
-                           self.cams[id].stop = 'invisible';
-                           self.cams[id].connect = 'visible';
-                           self.cams[id].snapshot = 'visible';
-                       }
-                   }).catch(function(ex) {
-                       console.log('parsing failed', ex.toString());
-                   });*/
+                    }
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex.toString());
+                });
         },
-        snapshot: function(id) {
+        snapshot: function(index, id) {
             var self = this;
             fetch(self.url + 'picture/' + id)
                 .then(function(response) {
                     return response.json()
                 }).then(function(json) {
-                    self.cams[id].picture = "data:image/jpg;base64," + json.stdout;
+                    self.cams[index].picture = "data:image/jpg;base64," + json.stdout;
                     self.logs.unshift("cam " + id + " picture changed" + " [ " + new Date().toLocaleTimeString() + "  ]");
 
                 }).catch(function(ex) {
