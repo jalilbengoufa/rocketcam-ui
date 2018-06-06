@@ -15,7 +15,7 @@
                                 <h2>CAMERA {{'[ ' + cam.id + ' ]'}} </h2>
                                 <b-row class="no">
                                     <b-col>
-                                        <b-img center width="400" v-bind:src="cam.picture" fluid alt="Fluid image" />
+                                        <b-img center width="300" v-bind:src="cam.picture" fluid alt="Fluid image" />
                                     </b-col>
                                     <b-col>
                                         <b-button v-on:click="changeToMode1(cam.index)" size="lg" :disabled="cam.mode1" variant="outline-primary">Configuration</b-button>
@@ -58,7 +58,7 @@
 <script>
 export default {
     name: 'app',
-    data() {
+    data(){
         return {
             cams: [],
             camsIds: [],
@@ -105,7 +105,6 @@ export default {
         },
         changeToMode1: function(id) {
             var self = this;
-            var ask = window.confirm("Are you sure you want this action will stop the recording?");
             if (ask == true) {
                 self.cams[id].mode1 = true;
                 self.cams[id].mode2 = false;
@@ -127,13 +126,13 @@ export default {
                 return response.json()
             }).then(function(json) {
                  self.camsIds = json.camera
-                if(json.running == true){
-                    self.loadLast()
-                    self.showAlert("last running statue loaded", "primary")
-                }else{
+               // if(json.running == true){
+                    //self.loadLast()
+                   // self.showAlert("last running statue loaded", "primary")
+              //  }else{
                     self.createCams()
                     self.showAlert("Connected to the rocket", "success")
-                }
+               // }
               
 
             }).catch(function(ex) {
@@ -172,11 +171,12 @@ export default {
                         if (json.running == false) {
                             self.timeout++;
                         }
-                        if (self.timeout == 3) {
+                        if (self.timeout == 15) {
                             self.logs.unshift('The camera stopped running , please reload the page and try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
+                            self.showAlert("Connection timeout please reload the page and try again", "danger")
                             self.beforeDestroy();
                             //self.timeout = 0;
-                            self.showAlert("Connection timeout please reload the page and try again", "danger")
+                            
                         }
                     }).catch(function(ex) {
                         self.logs.unshift('Connection lost please reload the page and try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
