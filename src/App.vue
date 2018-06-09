@@ -8,12 +8,12 @@
                         <li v-for="log in logs" v-text="log"></li>
                     </ul>
                 </b-col>
-                <b-col cols="12" md="8" order="2" no-gutters>
+                <b-col cols="12" md="8" ordre="2" no-gutters>
                     <b-card style="background-color:#F5F5F5;" no-body>
                         <b-tabs pills card>
                             <b-tab v-for="cam in cams" :key="cam.id" :title="'CAMERA [ '+cam.id+' ]'">
                                 <h2>CAMERA {{'[ ' + cam.id + ' ]'}} </h2>
-                                <b-row class="no">
+                                <b-row>
                                     <b-col>
                                         <b-img center width="300" v-bind:src="cam.picture" fluid alt="Fluid image" />
                                     </b-col>
@@ -25,8 +25,8 @@
                                         <b-button v-if="cam.mode1" v-on:click="snapshot(cam.index,cam.id)" size="lg" variant="warning">SNAPSHOT</b-button>
                                         <b-button v-if="cam.mode2 && cam.start" v-on:click="start(cam.index,cam.id)" size="lg" variant="success">START</b-button>
                                         <b-button v-if="cam.mode2 && cam.stop" v-on:click="stop(cam.index,cam.id)" size="lg" variant="danger">STOP</b-button>
-                                        <br>
-                                        <br>
+                                    </b-col>
+                                    <b-col>
                                         <h5>RECORDING STATE:</h5>
                                         <div v-if="cam.mode2 && cam.recording" class="pulsating-circle"></div>
                                         <div v-if="cam.mode2 && cam.recording == false" class="dot"></div>
@@ -43,10 +43,10 @@
                             </b-col>
                             <div class="w-100"></div>
                             <b-col>
-                                    <b-btn v-b-modal.modallg size="lg" variant="secondary">Help</b-btn>
-                                    <b-modal id="modallg" size="lg" title="Help" ok-only>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod diam ipsum, et lobortis nisl iaculis eu. Curabitur nunc ligula, porta nec posuere non, bibendum a nisl. Vestibulum a ipsum dictum, blandit dui a, feugiat justo. Fusce efficitur lacus nibh, quis euismod eros suscipit a. Fusce tristique tempor felis, vel ornare risus sodales ut. Nunc consectetur tellus vitae risus finibus cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus metus lorem, efficitur eget tempus eu, consectetur in nunc. Ut dignissim malesuada tellus quis maximus. Nullam facilisis pellentesque interdum. Etiam commodo risus condimentum massa semper dapibus. Vestibulum dapibus rhoncus metus, vitae lobortis ante faucibus varius. Quisque blandit dolor in sem vestibulum, quis rutrum eros tincidunt. Aliquam magna libero, efficitur non mauris id, laoreet eleifend lorem. Cras varius dolor sed est consectetur, eget faucibus justo consectetur. Integer porta, dui sit amet porta dignissim, odio ipsum molestie ligula, in viverra nibh sem eu tortor. Nulla a lorem consectetur, cursus ex in, suscipit ipsum. Vestibulum vehicula dignissim molestie. Aenean id semper quam, in auctor nisl. Pellentesque euismod luctus auctor. Ut finibus vitae mi quis egestas. Sed a blandit augue, ut ornare arcu. Etiam sit amet tortor eget tortor lobortis laoreet. Sed ullamcorper egestas ultrices. Etiam vitae odio sollicitudin, euismod elit et, ultrices sapien. Quisque scelerisque, diam in tincidunt volutpat, libero felis congue nisi, quis ultrices quam nisl ac nulla. Vivamus placerat, libero sed efficitur tempor, tortor ex ullamcorper quam, quis commodo nisl dolor in diam. Nam tempor blandit purus. Sed erat massa, efficitur nec viverra sit amet, faucibus in lacus. Sed id nibh dui. Suspendisse iaculis arcu nec porttitor cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas vitae sem ac turpis varius interdum. Nunc auctor tempor urna lobortis rutrum. Donec non mauris sit amet libero gravida congue sit amet vitae sem. Fusce et aliquam ligula, ac pretium ante. Ut pellentesque, diam tristique suscipit egestas, nunc dolor maximus odio, vitae pretium sapien odio non nibh. Nam rhoncus ipsum eu ante finibus, id placerat lorem iaculis. Aliquam condimentum aliquam mauris, ac imperdiet nunc scelerisque non. Fusce vitae maximus purus, nec dictum felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non porttitor mauris. Vivamus vestibulum auctor eros tempor aliquam. Aenean auctor metus est, eu pretium sem vestibulum dapibus. Vestibulum accumsan ultrices dolor a tincidunt. Nunc feugiat massa eu mollis iaculis. Nunc varius ante quis tortor euismod convallis. Mauris ultricies tincidunt bibendum. Nulla eleifend nulla vitae orci vehicula, at fringilla erat tempor. Ut luctus lectus sit amet pellentesque consequat. Mauris eget lorem at neque scelerisque faucibus. Quisque facilisis vehicula ipsum ut dictum. Fusce aliquam enim vel sem lobortis, et lobortis tellus rutrum. Pellentesque interdum hendrerit quam, et posuere enim pellentesque id. Duis id lacinia purus, in volutpat turpis. Mauris molestie tempor laoreet.
-                                    </b-modal>
+                                <b-btn v-b-modal.modallg size="lg" variant="secondary">Help</b-btn>
+                                <b-modal id="modallg" size="lg" title="Help" ok-only>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod diam ipsum, et lobortis nisl iaculis eu. Curabitur nunc ligula, porta nec posuere non, bibendum a nisl. Vestibulum a ipsum dictum, blandit dui a, feugiat justo. Fusce efficitur lacus nibh, quis euismod eros suscipit a. Fusce tristique tempor felis, vel ornare risus sodales ut. Nunc consectetur tellus vitae risus finibus cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus metus lorem, efficitur eget tempus eu, consectetur in nunc. Ut dignissim malesuada tellus quis maximus. Nullam facilisis pellentesque interdum. Etiam commodo risus condimentum massa semper dapibus. Vestibulum dapibus rhoncus metus, vitae lobortis ante faucibus varius. Quisque blandit dolor in sem vestibulum, quis rutrum eros tincidunt. Aliquam magna libero, efficitur non mauris id, laoreet eleifend lorem. Cras varius dolor sed est consectetur, eget faucibus justo consectetur. Integer porta, dui sit amet porta dignissim, odio ipsum molestie ligula, in viverra nibh sem eu tortor. Nulla a lorem consectetur, cursus ex in, suscipit ipsum. Vestibulum vehicula dignissim molestie. Aenean id semper quam, in auctor nisl. Pellentesque euismod luctus auctor. Ut finibus vitae mi quis egestas. Sed a blandit augue, ut ornare arcu. Etiam sit amet tortor eget tortor lobortis laoreet. Sed ullamcorper egestas ultrices. Etiam vitae odio sollicitudin, euismod elit et, ultrices sapien. Quisque scelerisque, diam in tincidunt volutpat, libero felis congue nisi, quis ultrices quam nisl ac nulla. Vivamus placerat, libero sed efficitur tempor, tortor ex ullamcorper quam, quis commodo nisl dolor in diam. Nam tempor blandit purus. Sed erat massa, efficitur nec viverra sit amet, faucibus in lacus. Sed id nibh dui. Suspendisse iaculis arcu nec porttitor cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas vitae sem ac turpis varius interdum. Nunc auctor tempor urna lobortis rutrum. Donec non mauris sit amet libero gravida congue sit amet vitae sem. Fusce et aliquam ligula, ac pretium ante. Ut pellentesque, diam tristique suscipit egestas, nunc dolor maximus odio, vitae pretium sapien odio non nibh. Nam rhoncus ipsum eu ante finibus, id placerat lorem iaculis. Aliquam condimentum aliquam mauris, ac imperdiet nunc scelerisque non. Fusce vitae maximus purus, nec dictum felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non porttitor mauris. Vivamus vestibulum auctor eros tempor aliquam. Aenean auctor metus est, eu pretium sem vestibulum dapibus. Vestibulum accumsan ultrices dolor a tincidunt. Nunc feugiat massa eu mollis iaculis. Nunc varius ante quis tortor euismod convallis. Mauris ultricies tincidunt bibendum. Nulla eleifend nulla vitae orci vehicula, at fringilla erat tempor. Ut luctus lectus sit amet pellentesque consequat. Mauris eget lorem at neque scelerisque faucibus. Quisque facilisis vehicula ipsum ut dictum. Fusce aliquam enim vel sem lobortis, et lobortis tellus rutrum. Pellentesque interdum hendrerit quam, et posuere enim pellentesque id. Duis id lacinia purus, in volutpat turpis. Mauris molestie tempor laoreet.
+                                </b-modal>
                             </b-col>
                         </b-row>
                     </b-card>
@@ -58,7 +58,7 @@
 <script>
 export default {
     name: 'app',
-    data(){
+    data() {
         return {
             cams: [],
             camsIds: [],
@@ -105,14 +105,9 @@ export default {
         },
         changeToMode1: function(id) {
             var self = this;
-            if (ask == true) {
-                self.cams[id].mode1 = true;
-                self.cams[id].mode2 = false;
-                self.stop(id);
-            } else {
-                self.showAlert("recording stopped", "warning")
-            }
-
+            self.cams[id].mode1 = true;
+            self.cams[id].mode2 = false;
+            self.stop(id);
         },
         changeToMode2: function(index) {
             var self = this
@@ -125,15 +120,15 @@ export default {
             fetch(self.url).then(function(response) {
                 return response.json()
             }).then(function(json) {
-                 self.camsIds = json.camera
-               // if(json.running == true){
-                    //self.loadLast()
-                   // self.showAlert("last running statue loaded", "primary")
-              //  }else{
-                    self.createCams()
-                    self.showAlert("Connected to the rocket", "success")
-               // }
-              
+                self.camsIds = json.camera
+                // if(json.running == true){
+                //self.loadLast()
+                // self.showAlert("last running statue loaded", "primary")
+                //  }else{
+                self.createCams()
+                self.showAlert("Connected to the rocket", "success")
+                // }
+
 
             }).catch(function(ex) {
                 self.showAlert("Can not connect to the rocket , try again", "danger")
@@ -176,7 +171,7 @@ export default {
                             self.showAlert("Connection timeout please reload the page and try again", "danger")
                             self.beforeDestroy();
                             //self.timeout = 0;
-                            
+
                         }
                     }).catch(function(ex) {
                         self.logs.unshift('Connection lost please reload the page and try again' + " [ " + new Date().toLocaleTimeString() + "  ]");
@@ -355,11 +350,13 @@ a:hover {
     box-shadow: 0 0 8px rgba(0, 0, 0, .3);
     display: inline-block;
 }
+
 li {
     color: green;
 }
+
 ul {
-    list-style-type:hiragana;
+    list-style-type: hiragana;
     margin: 30px;
     padding: none;
 }
