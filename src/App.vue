@@ -15,7 +15,7 @@
                                 <h2>CAMERA {{'[ ' + cam.id + ' ]'}} </h2>
                                 <b-row>
                                     <b-col>
-                                        <b-img center width="300" v-bind:src="cam.picture" fluid alt="Fluid image" />
+                                        <b-img center width="300" v-bind:src="cam.picture" fluid alt="snapshot image" />
                                     </b-col>
                                     <b-col>
                                         <b-button v-on:click="changeToMode1(cam.index)" size="lg" :disabled="cam.mode1" variant="outline-primary">Configuration</b-button>
@@ -44,8 +44,18 @@
                             <div class="w-100"></div>
                             <b-col>
                                 <b-btn v-b-modal.modallg size="lg" variant="secondary">Help</b-btn>
-                                <b-modal id="modallg" size="lg" title="Help" ok-only>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod diam ipsum, et lobortis nisl iaculis eu. Curabitur nunc ligula, porta nec posuere non, bibendum a nisl. Vestibulum a ipsum dictum, blandit dui a, feugiat justo. Fusce efficitur lacus nibh, quis euismod eros suscipit a. Fusce tristique tempor felis, vel ornare risus sodales ut. Nunc consectetur tellus vitae risus finibus cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus metus lorem, efficitur eget tempus eu, consectetur in nunc. Ut dignissim malesuada tellus quis maximus. Nullam facilisis pellentesque interdum. Etiam commodo risus condimentum massa semper dapibus. Vestibulum dapibus rhoncus metus, vitae lobortis ante faucibus varius. Quisque blandit dolor in sem vestibulum, quis rutrum eros tincidunt. Aliquam magna libero, efficitur non mauris id, laoreet eleifend lorem. Cras varius dolor sed est consectetur, eget faucibus justo consectetur. Integer porta, dui sit amet porta dignissim, odio ipsum molestie ligula, in viverra nibh sem eu tortor. Nulla a lorem consectetur, cursus ex in, suscipit ipsum. Vestibulum vehicula dignissim molestie. Aenean id semper quam, in auctor nisl. Pellentesque euismod luctus auctor. Ut finibus vitae mi quis egestas. Sed a blandit augue, ut ornare arcu. Etiam sit amet tortor eget tortor lobortis laoreet. Sed ullamcorper egestas ultrices. Etiam vitae odio sollicitudin, euismod elit et, ultrices sapien. Quisque scelerisque, diam in tincidunt volutpat, libero felis congue nisi, quis ultrices quam nisl ac nulla. Vivamus placerat, libero sed efficitur tempor, tortor ex ullamcorper quam, quis commodo nisl dolor in diam. Nam tempor blandit purus. Sed erat massa, efficitur nec viverra sit amet, faucibus in lacus. Sed id nibh dui. Suspendisse iaculis arcu nec porttitor cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas vitae sem ac turpis varius interdum. Nunc auctor tempor urna lobortis rutrum. Donec non mauris sit amet libero gravida congue sit amet vitae sem. Fusce et aliquam ligula, ac pretium ante. Ut pellentesque, diam tristique suscipit egestas, nunc dolor maximus odio, vitae pretium sapien odio non nibh. Nam rhoncus ipsum eu ante finibus, id placerat lorem iaculis. Aliquam condimentum aliquam mauris, ac imperdiet nunc scelerisque non. Fusce vitae maximus purus, nec dictum felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non porttitor mauris. Vivamus vestibulum auctor eros tempor aliquam. Aenean auctor metus est, eu pretium sem vestibulum dapibus. Vestibulum accumsan ultrices dolor a tincidunt. Nunc feugiat massa eu mollis iaculis. Nunc varius ante quis tortor euismod convallis. Mauris ultricies tincidunt bibendum. Nulla eleifend nulla vitae orci vehicula, at fringilla erat tempor. Ut luctus lectus sit amet pellentesque consequat. Mauris eget lorem at neque scelerisque faucibus. Quisque facilisis vehicula ipsum ut dictum. Fusce aliquam enim vel sem lobortis, et lobortis tellus rutrum. Pellentesque interdum hendrerit quam, et posuere enim pellentesque id. Duis id lacinia purus, in volutpat turpis. Mauris molestie tempor laoreet.
+                                <b-modal style="text-align: left;" id="modallg" size="lg" title="Help" ok-only>
+                                    - Vérifier que vous etes connecte au bon PI par wifi.
+                                    <br>
+                                    - Le bouton SNAPSHOT sert a verifier la connexion au pi en prenent une photo dans le mode configuration.
+                                    <br>
+                                    - Appuyez sur le bouton START pour demarrer l'enregistrement.
+                                    <br>
+                                    - Appuyez sur le bouton STOP pour l'arreter , l'enregistrement s'arrete aussi quand vous changez de Mode.
+                                    <br>
+                                    - Lorsque le l'enregistrement débute le point rouge change d'état et va clignoter.
+                                    <br>
+                                    - Si la connexion au PI est perdu lorsque la distance est grande ou autre , c'est normal que les composant ne fonctionne plus.
                                 </b-modal>
                             </b-col>
                         </b-row>
@@ -121,13 +131,13 @@ export default {
                 return response.json()
             }).then(function(json) {
                 self.camsIds = json.camera
-                // if(json.running == true){
-                //self.loadLast()
-                // self.showAlert("last running statue loaded", "primary")
-                //  }else{
-                self.createCams()
-                self.showAlert("Connected to the rocket", "success")
-                // }
+                if(json.running == true){
+                        self.loadLast()
+                        self.showAlert("last running statue loaded", "primary")
+                 }else{
+                    self.createCams()
+                    self.showAlert("Connected to the rocket", "success")
+                }
 
 
             }).catch(function(ex) {
