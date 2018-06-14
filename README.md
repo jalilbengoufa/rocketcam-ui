@@ -8,7 +8,7 @@ UI for the [RocketCam project](https://github.com/ClubCedille/RocketCam), done u
 
 - to generate the distribution build run  ` npm run build ` 
 
-## Make  sure your are connected to th PI wifi or the UI does not work
+### Make  sure your are connected to th PI wifi or the UI does not work
 
 Options to run a HTML file browser in linux :
 
